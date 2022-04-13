@@ -31,10 +31,10 @@ class FatSecret
   SITE   = 'https://platform.fatsecret.com/rest/server.api'
   DIGEST = OpenSSL::Digest::SHA1.new
 
-  def self.init(key, secret, region = "UK")
+  def self.init(key, secret, region = "GB")
     @@key = key
     @@secret = secret
-    @@region = region
+    @region = region
     return self
   end
 
@@ -48,7 +48,7 @@ class FatSecret
         :oauth_signature_method => SHA1,
         :oauth_timestamp => Time.now.to_i,
         :oauth_version => '1.0',
-        :region => @@region
+        :region => @region
       }
       params.merge!(query)
       secret = params.delete(:oauth_secret) || ''
